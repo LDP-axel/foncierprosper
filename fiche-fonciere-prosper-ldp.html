@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Foncière Prosper — Fiche produit · Le Déclic Patrimonial</title>
+<style>
+:root{
+  --navy:#262B5D; --navy2:#434995; --mint:#76C1A6; --mint-pale:#E8F7F2;
+  --beige:#FCF8F2; --gold:#F8B34F; --gold-pale:#FFF4E0;
+  --red:#e6413a; --red-pale:#FFF0EF; --border:#e4e2dc; --grey:#555;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Inter','Segoe UI',system-ui,sans-serif;
+  background:linear-gradient(135deg,#1a1d3a 0%,#262B5D 55%,#1B3A4B 100%);
+  min-height:100vh;padding:32px 16px;color:#222;line-height:1.5;
+}
+.print-btn{
+  position:fixed;top:20px;right:20px;background:var(--mint);color:#fff;
+  border:none;padding:12px 20px;border-radius:30px;font-weight:600;
+  cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.3);font-size:14px;z-index:100;
+}
+.print-btn:hover{background:#5fa68b}
+.page{max-width:880px;margin:0 auto;background:var(--beige);
+  border-radius:18px;overflow:hidden;box-shadow:0 25px 60px rgba(0,0,0,.4)}
+.page-header{
+  background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);
+  color:#fff;padding:34px 40px;
+}
+.brand{font-size:11px;letter-spacing:3px;color:var(--mint);font-weight:600;margin-bottom:8px}
+.page-header h1{font-size:34px;font-weight:700;margin-bottom:6px}
+.page-header .sub{font-size:15px;opacity:.85}
+.tags{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap}
+.tag{background:rgba(255,255,255,.15);color:#fff;padding:5px 12px;
+  border-radius:20px;font-size:12px;font-weight:500}
+.tag.mint{background:var(--mint);color:var(--navy)}
+.tag.gold{background:var(--gold);color:var(--navy)}
+.content{padding:32px 40px}
+.verif-banner{
+  background:var(--gold-pale);border-left:4px solid var(--gold);
+  padding:14px 18px;border-radius:8px;margin-bottom:24px;font-size:13px;
+}
+.vb-title{font-weight:700;color:#8a5a00;cursor:pointer;
+  display:flex;justify-content:space-between;align-items:center}
+.section-title{
+  font-size:13px;letter-spacing:2px;color:var(--navy);font-weight:700;
+  text-transform:uppercase;margin:28px 0 14px;padding-bottom:8px;
+  border-bottom:2px solid var(--mint);
+}
+.section-title:first-child{margin-top:0}
+.mecanisme{background:#fff;border:1px solid var(--border);border-radius:12px;padding:20px}
+.mec-steps{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:14px}
+.mec-step{background:var(--beige);border-radius:10px;padding:14px;text-align:center;position:relative}
+.mec-num{display:inline-block;background:var(--navy);color:#fff;width:26px;height:26px;
+  border-radius:50%;line-height:26px;font-weight:700;font-size:12px;margin-bottom:8px}
+.mec-title{font-weight:700;color:var(--navy);font-size:13px;margin-bottom:6px}
+.mec-text{font-size:12px;color:var(--grey);line-height:1.5}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.kpi{background:#fff;border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center}
+.kpi-label{font-size:11px;color:var(--grey);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.kpi-value{font-size:22px;font-weight:700;color:var(--navy)}
+.kpi-sub{font-size:10px;color:#888;margin-top:3px}
+.fiscal-box{background:#fff;border:1px solid var(--border);border-radius:12px;padding:20px}
+.fiscal-row{display:flex;justify-content:space-between;align-items:flex-start;
+  padding:12px 0;border-bottom:1px dashed #eee;font-size:13px;gap:14px}
+.fiscal-row:last-child{border:none;padding-bottom:0}
+.fiscal-label{flex:0 0 50%;color:var(--navy);font-weight:600}
+.fiscal-val{flex:1;color:#333}
+.alert-box{background:var(--gold-pale);border-left:4px solid var(--gold);
+  padding:14px 18px;border-radius:6px;margin-top:14px;font-size:12.5px;color:#6b4a00}
+.alert-box strong{color:#8a5a00}
+.perf-box{background:#fff;border:1px solid var(--border);border-radius:12px;padding:20px}
+.perf-deco{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px}
+.perf-brick{background:var(--beige);border-radius:10px;padding:14px;text-align:center;border-top:3px solid var(--mint)}
+.perf-brick.gold{border-top-color:var(--gold)}
+.perf-brick.navy{border-top-color:var(--navy)}
+.pb-pct{font-size:24px;font-weight:700;color:var(--navy)}
+.pb-label{font-size:11px;color:var(--grey);margin-top:4px;text-transform:uppercase;letter-spacing:.5px}
+.pb-nature{font-size:10px;color:#888;margin-top:4px;font-style:italic}
+.perf-total{background:var(--navy);color:#fff;padding:14px;border-radius:10px;text-align:center;margin-top:8px}
+.perf-total-pct{font-size:28px;font-weight:700;color:var(--mint)}
+.perf-total-label{font-size:12px;opacity:.85;margin-top:4px}
+.adequation{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.adq-card{background:#fff;border-radius:12px;padding:18px;border:1px solid var(--border)}
+.adq-card.yes{border-top:3px solid var(--mint)}
+.adq-card.no{border-top:3px solid var(--red)}
+.adq-title{font-weight:700;font-size:13px;margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px}
+.adq-card.yes .adq-title{color:var(--mint)}
+.adq-card.no .adq-title{color:var(--red)}
+.adq-card ul{margin:0 0 0 18px;padding:0}
+.adq-card li{font-size:12.5px;margin-bottom:6px;color:#333;line-height:1.5}
+.liquidite-box{background:var(--red-pale);border-left:4px solid var(--red);
+  padding:16px 20px;border-radius:8px;font-size:13px;color:#6b1a17;line-height:1.6}
+.liquidite-box strong{color:var(--red)}
+.risks-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.risk-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:14px;border-left:3px solid var(--red)}
+.risk-title{font-weight:700;color:var(--navy);font-size:12.5px;margin-bottom:6px}
+.risk-text{font-size:11.5px;color:var(--grey);line-height:1.5}
+.frais-box{background:#fff;border:1px solid var(--border);border-radius:12px;padding:18px}
+.frais-line{display:flex;justify-content:space-between;padding:9px 0;
+  border-bottom:1px solid #f0f0f0;font-size:13px;gap:12px}
+.frais-line:last-child{border:none}
+.frais-line strong{color:var(--navy);text-align:right}
+.simulation{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);
+  color:#fff;border-radius:14px;padding:24px;margin-top:8px}
+.sim-title{font-size:13px;letter-spacing:2px;color:var(--mint);
+  text-transform:uppercase;margin-bottom:4px;font-weight:600}
+.sim-subtitle{font-size:14px;opacity:.85;margin-bottom:18px}
+.sim-scenarios{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.sim-sc{background:rgba(255,255,255,.08);border-radius:10px;padding:16px}
+.sim-sc-title{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--mint);margin-bottom:10px;font-weight:700}
+.sim-sc-line{display:flex;justify-content:space-between;padding:5px 0;font-size:12.5px;border-bottom:1px solid rgba(255,255,255,.08)}
+.sim-sc-line:last-child{border:none;padding-top:8px;font-weight:700;color:var(--mint);font-size:14px}
+.sim-note{margin-top:14px;font-size:11px;opacity:.75;text-align:center;font-style:italic}
+.mentions{background:#fff;border-left:3px solid var(--grey);padding:14px 16px;
+  margin-top:24px;font-size:11px;color:var(--grey);line-height:1.6;border-radius:4px}
+.mentions strong{color:var(--navy)}
+.card-footer{background:var(--navy);color:#fff;padding:24px 40px;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+.fb-name{font-size:14px;font-weight:700;letter-spacing:1px;color:var(--mint)}
+.fb-sub{font-size:11px;opacity:.75;margin-top:3px}
+.rdv-btn{background:var(--mint);color:var(--navy);text-decoration:none;
+  padding:12px 22px;border-radius:30px;font-weight:700;font-size:13px;
+  display:inline-block;transition:transform .15s}
+.rdv-btn:hover{transform:translateY(-2px)}
+@media print{
+  body{background:#fff!important;padding:0!important;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .print-btn{display:none!important}
+  .page{box-shadow:none;border-radius:0;max-width:100%}
+  .verif-banner{display:none!important}
+  @page{size:A4;margin:8mm}
+  .section-title{page-break-after:avoid}
+  .mecanisme,.fiscal-box,.perf-box,.adq-card,.risk-card,.simulation{page-break-inside:avoid}
+}
+@media(max-width:720px){
+  .kpi-grid,.mec-steps,.perf-deco,.adequation,.sim-scenarios,.risks-grid{grid-template-columns:1fr}
+  .fiscal-row{flex-direction:column;gap:4px}
+}
+</style>
+</head>
+<body>
+
+<button class="print-btn" onclick="window.print()">🖨️ Télécharger en PDF</button>
+
+<div class="page">
+
+  <div class="page-header">
+    <div class="brand">LE DÉCLIC PATRIMONIAL · FICHE PRODUIT</div>
+    <h1>Foncière Prosper</h1>
+    <div class="sub">SCA agréée ESUS · Merci Prosper · Distribuée via Wiseed (PSI) · Créée en 2025</div>
+    <div class="tags">
+      <span class="tag gold">IR-PME 25 %</span>
+      <span class="tag mint">Exonération IFI</span>
+      <span class="tag">Immobilier résidentiel</span>
+      <span class="tag">Impact bien-vieillir</span>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <div class="verif-banner">
+      <div class="vb-title" onclick="var c=document.getElementById('verif-content');c.style.display=c.style.display==='none'?'block':'none';this.querySelector('.toggle').textContent=c.style.display==='none'?'▸':'▾';">
+        <span>🔍 Notes internes — À vérifier avant remise client</span>
+        <span class="toggle" style="font-size:14px">▸</span>
+      </div>
+      <div id="verif-content" style="display:none;margin-top:10px;line-height:1.7">
+        <div>• Données issues des supports partenaires Foncière Prosper (plaquette avril 2026, support investisseurs février 2026, one pager juillet 2025). Vérifier la publication de supports plus récents avant chaque remise.</div>
+        <div>• <strong>ATTENTION IR-PME :</strong> dispositif prorogé jusqu'au 30 septembre 2026 uniquement, resserrement annoncé par la Commission européenne. La réduction 25 % ne sera pas reconduite à l'identique. À réévaluer impérativement après cette date.</div>
+        <div>• Vérifier que Jamax Conseils est bien à jour dans la chaîne de distribution Wiseed / Merci Prosper au moment de la recommandation.</div>
+        <div>• Faire valider cette fiche par CNCEF Conformité avant première remise client — communication promotionnelle au sens RG AMF sur un produit à risque de liquidité et de valorisation.</div>
+        <div>• Produit récent (1 exercice clôturé 2025) : ne jamais présenter la performance 2025 (4,76 %) comme un historique statistiquement significatif.</div>
+        <div>• Toujours remettre le DIS (Document d'Informations Synthétique) avant toute souscription.</div>
+        <div>• <strong>À CONFIRMER auprès de Merci Prosper :</strong> formule exacte de revalorisation annuelle de la part (linéaire / actuarielle ?) et date de clôture (1ᵉʳ juillet annuel à confirmer).</div>
+        <div>• <strong>À CONFIRMER auprès du fiscaliste :</strong> traitement de la base fiscale d'acquisition pour le calcul de la plus-value de cession sur véhicules ESUS — la réduction IR-PME ne réduit en principe PAS la base, à valider explicitement.</div>
+      </div>
+    </div>
+
+    <div class="section-title">🎯 Nature du produit</div>
+    <div class="mecanisme">
+      <p style="font-size:13.5px;color:#333;margin-bottom:8px">
+        Foncière Prosper est une <strong>Société en Commandite par Actions (SCA)</strong> agréée <strong>ESUS</strong> (Entreprise Solidaire d'Utilité Sociale), qui acquiert des parts indivises de biens immobiliers résidentiels auprès de seniors de plus de 65 ans. Le senior reste occupant à 100 % de son logement jusqu'à la revente. Le modèle est <strong>sans aléa viager</strong> : la performance ne dépend pas de la durée de vie du vendeur.
+      </p>
+      <div class="mec-steps">
+        <div class="mec-step">
+          <div class="mec-num">1</div>
+          <div class="mec-title">L'épargnant investit</div>
+          <div class="mec-text">Souscription de parts de la SCA via la plateforme Vasco Fund (PSI Wiseed).</div>
+        </div>
+        <div class="mec-step">
+          <div class="mec-num">2</div>
+          <div class="mec-title">La Foncière achète</div>
+          <div class="mec-text">Acquisition de parts indivises de biens immobiliers auprès de seniors, avec une décote de ~30 % liée au droit d'occupation conservé.</div>
+        </div>
+        <div class="mec-step">
+          <div class="mec-num">3</div>
+          <div class="mec-title">Revalorisation à terme</div>
+          <div class="mec-text">Le gain potentiel se matérialise à la revente du bien (7 à 10 ans). Aucun loyer ni dividende perçu dans l'intervalle.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">📊 Chiffres clés (au 31/12/2025)</div>
+    <div class="kpi-grid">
+      <div class="kpi"><div class="kpi-label">Prix de souscription</div><div class="kpi-value">115,24 €</div><div class="kpi-sub">par action</div></div>
+      <div class="kpi"><div class="kpi-label">Valeur de retrait</div><div class="kpi-value">104,87 €</div><div class="kpi-sub">indicative, non garantie</div></div>
+      <div class="kpi"><div class="kpi-label">Performance 2025</div><div class="kpi-value">+ 4,76 %</div><div class="kpi-sub">1ᵉʳ exercice clôturé</div></div>
+      <div class="kpi"><div class="kpi-label">Objectif cible</div><div class="kpi-value">4,5 %/an</div><div class="kpi-sub">non garanti</div></div>
+      <div class="kpi"><div class="kpi-label">Collecte 2025</div><div class="kpi-value">7,16 M€</div><div class="kpi-sub">532 investisseurs</div></div>
+      <div class="kpi"><div class="kpi-label">Projets financés</div><div class="kpi-value">18</div><div class="kpi-sub">44 seniors accompagnés</div></div>
+      <div class="kpi"><div class="kpi-label">Horizon recommandé</div><div class="kpi-value">7 à 10 ans</div><div class="kpi-sub">7 ans minimum fiscal</div></div>
+      <div class="kpi"><div class="kpi-label">Ticket minimum</div><div class="kpi-value">1 152 €</div><div class="kpi-sub">10 actions</div></div>
+    </div>
+
+    <div class="section-title">💶 Avantages fiscaux</div>
+    <div class="fiscal-box">
+      <div class="fiscal-row">
+        <div class="fiscal-label">Réduction d'impôt sur le revenu</div>
+        <div class="fiscal-val"><strong>25 %</strong> du montant investi — dispositif <strong>IR-PME renforcé ESUS</strong> (art. 199 terdecies-0 AA du CGI). Plafond d'investissement : <strong>50 000 €</strong> (célibataire) ou <strong>100 000 €</strong> (couple). Avantage fiscal plafonné à <strong>10 000 €/an</strong>, report possible sur 5 ans.</div>
+      </div>
+      <div class="fiscal-row">
+        <div class="fiscal-label">Exonération IFI</div>
+        <div class="fiscal-val"><strong>100 %</strong> — les parts de SCA agréée ESUS ne sont pas incluses dans l'assiette IFI (art. 976 IV du CGI).</div>
+      </div>
+      <div class="fiscal-row">
+        <div class="fiscal-label">Fiscalité à la revente</div>
+        <div class="fiscal-val"><strong>PFU 30 %</strong> (12,8 % IR + 17,2 % prélèvements sociaux) sur la plus-value de cession.</div>
+      </div>
+      <div class="fiscal-row">
+        <div class="fiscal-label">Condition de détention</div>
+        <div class="fiscal-val"><strong>7 ans minimum</strong> — la cession avant 7 ans entraîne la reprise de la réduction d'impôt (sauf cas dérogatoires : décès, invalidité, licenciement).</div>
+      </div>
+      <div class="alert-box">
+        <strong>⚠ Point d'attention majeur — évolution du dispositif IR-PME.</strong> La Commission européenne a prorogé le dispositif jusqu'au <strong>30 septembre 2026</strong> uniquement, en prenant acte d'un resserrement à venir. <strong>Au-delà de cette date, la réduction d'impôt ne pourra pas être reconduite selon les mêmes modalités.</strong> Les souscriptions effectuées avant le 30/09/2026 restent acquises sous réserve du respect de l'engagement de détention de 7 ans. Source : plaquette Foncière Prosper avril 2026.
+      </div>
+    </div>
+
+    <div class="section-title">📈 Décomposition de la performance cible</div>
+    <div class="perf-box">
+      <p style="font-size:13px;color:var(--grey);margin-bottom:14px">
+        La performance cible annoncée de <strong>7,09 %/an</strong> sur 7 ans (non garantie) est la somme de trois composantes de <strong>nature très différente</strong>, qu'il est essentiel de distinguer pour bien comprendre le produit.
+      </p>
+      <div class="perf-deco">
+        <div class="perf-brick">
+          <div class="pb-pct">~ 3,57 %</div>
+          <div class="pb-label">Avantage fiscal lissé</div>
+          <div class="pb-nature">25 % en année 1, réparti sur 7 ans</div>
+        </div>
+        <div class="perf-brick navy">
+          <div class="pb-pct">3,00 %</div>
+          <div class="pb-label">Contrat Prosper</div>
+          <div class="pb-nature">Revalorisation mathématique net de frais, non garantie</div>
+        </div>
+        <div class="perf-brick gold">
+          <div class="pb-pct">1,50 %</div>
+          <div class="pb-label">Évolution immobilier</div>
+          <div class="pb-nature">Hypothèse calée sur l'inflation, non garantie</div>
+        </div>
+      </div>
+      <div class="perf-total">
+        <div class="perf-total-pct">7,09 %/an*</div>
+        <div class="perf-total-label">Objectif cible cumulé sur 7 ans — non garanti</div>
+      </div>
+      <div style="margin-top:14px;font-size:12px;color:var(--grey);font-style:italic;line-height:1.6">
+        * La performance réelle dépend de la revalorisation effective de la part, de l'évolution du marché immobilier résidentiel et du maintien du dispositif fiscal IR-PME. La part de l'avantage fiscal dans la performance affichée est significative (~50 %) : sa suppression ou sa modification impacterait fortement le rendement net.
+      </div>
+    </div>
+
+    <div class="section-title">🔍 Comprendre le « 3 % » du Contrat Prosper</div>
+    <div class="mecanisme">
+      <p style="font-size:13.5px;color:#333;margin-bottom:14px">
+        Le 3 %/an n'est <strong>ni un loyer, ni un coupon</strong>. C'est une <strong>mécanique de décote progressive</strong> qu'il est essentiel de comprendre pour évaluer le produit en connaissance de cause.
+      </p>
+      <div class="mec-steps" style="grid-template-columns:1fr 1fr;gap:14px">
+        <div class="mec-step" style="text-align:left">
+          <div class="mec-num">1</div>
+          <div class="mec-title">À l'acquisition — décote contractuelle de 30 %</div>
+          <div class="mec-text">La Foncière achète une part indivise du bien à <strong>70 % de sa valeur estimée</strong>. Cette décote rémunère le droit d'occupation que le senior conserve pendant 10 ans. Pour 100 € de quote-part théorique, la Foncière paie 70 €.</div>
+        </div>
+        <div class="mec-step" style="text-align:left">
+          <div class="mec-num">2</div>
+          <div class="mec-title">Pendant la détention — revalorisation comptable annuelle</div>
+          <div class="mec-text">Chaque année qui passe rapproche la Foncière du moment où elle pourra disposer du bien. La part est <strong>réévaluée annuellement par Merci Prosper (commandité)</strong>, après validation comptable, pour refléter cette résorption progressive de la décote.</div>
+        </div>
+      </div>
+      <div style="background:var(--beige);border-radius:10px;padding:16px;margin-top:14px;font-size:13px;color:#333">
+        <strong style="color:var(--navy)">Exemple chiffré (source : plaquette Foncière Prosper p.8) —</strong>
+        Bien valorisé 500 000 €. La Foncière acquiert 18 % en quote-part théorique (90 000 €) en versant un coût total de 65 000 € (50 000 € au senior + 10 000 € notaire + 5 000 € commission Merci Prosper).<br/>
+        Sur 10 ans, l'écart 65 000 € → 90 000 € correspond à <strong>~3,30 %/an brut capitalisé</strong>, qui devient <strong>~3 %/an net</strong> après déduction des frais administratifs et comptables annuels de la SCA.
+      </div>
+      <div class="alert-box" style="margin-top:14px">
+        <strong>⚠ Point de vigilance important.</strong> La revalorisation est <strong>déterminée par le commandité</strong> (Merci Prosper), avec validation comptable. Il existe donc un risque d'écart entre la valorisation annuelle comptable et la valeur réelle qui ne sera connue qu'à la revente effective du bien. Cette mécanique est explicitement mentionnée dans le DIS comme un facteur de risque.
+      </div>
+    </div>
+
+    <div class="section-title">📐 Projection de la valeur liquidative à 7 ans</div>
+    <div class="perf-box">
+      <p style="font-size:13px;color:var(--grey);margin-bottom:14px">
+        Projection pédagogique pour <strong>1 action de 100 € (exercice simplifié)</strong>, combinant les deux moteurs d'appréciation cibles : Contrat Prosper (+3 %/an capitalisé, net des frais administratifs) et revalorisation immobilière (+1,5 %/an, hypothèse Merci Prosper).
+      </p>
+      <div style="background:var(--beige);border-radius:10px;padding:16px;margin-bottom:14px;font-size:13px;color:#333;line-height:1.7">
+        <strong style="color:var(--navy)">Méthodologie de calcul —</strong>
+        La commission de souscription 9 % TTC est prélevée à l'entrée. La <strong>base qui capitalise réellement dans la SCA</strong> est donc de <strong>91 € (et non 100 €)</strong>. Les deux moteurs s'appliquent de manière multiplicative sur cette base, chaque année :
+        <div style="background:#fff;border-radius:6px;padding:10px 14px;margin-top:10px;font-family:'Courier New',monospace;font-size:12px;color:var(--navy);border:1px solid var(--border)">
+          VL(n) = 91 € × (1,03 × 1,015)<sup>n</sup> = 91 € × (1,04545)<sup>n</sup>
+        </div>
+      </div>
+      <div style="overflow-x:auto">
+      <table style="width:100%;border-collapse:collapse;font-size:12.5px;background:#fff;border:1px solid var(--border);border-radius:10px;overflow:hidden">
+        <thead>
+          <tr style="background:var(--navy);color:#fff">
+            <th style="padding:10px;text-align:left;font-weight:600">Année</th>
+            <th style="padding:10px;text-align:right;font-weight:600">Base × (1,04545)ⁿ</th>
+            <th style="padding:10px;text-align:right;font-weight:600">VL estimée</th>
+            <th style="padding:10px;text-align:right;font-weight:600">Gain cumulé</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid #f0f0f0"><td style="padding:8px 10px">0 (souscription)</td><td style="padding:8px 10px;text-align:right;color:#888">91 × 1,00000</td><td style="padding:8px 10px;text-align:right;font-weight:600">91,00 €</td><td style="padding:8px 10px;text-align:right;color:#888">−9,00 €</td></tr>
+          <tr style="border-bottom:1px solid #f0f0f0"><td style="padding:8px 10px">1</td><td style="padding:8px 10px;text-align:right;color:#888">91 × 1,04545</td><td style="padding:8px 10px;text-align:right;font-weight:600">95,14 €</td><td style="padding:8px 10px;text-align:right;color:#888">−4,86 €</td></tr>
+          <tr style="border-bottom:1px solid #f0f0f0"><td style="padding:8px 10px">2</td><td style="padding:8px 10px;text-align:right;color:#888">91 × 1,09298</td><td style="padding:8px 10px;text-align:right;font-weight:600">99,46 €</td><td style="padding:8px 10px;text-align:right;color:#888">−0,54 €</td></tr>
+          <tr style="border-bottom:1px solid #f0f0f0"><td style="padding:8px 10px">3</td><td style="padding:8px 10px;text-align:right;color:#888">91 × 1,14264</td><td style="padding:8px 10px;text-align:right;font-weight:600">103,98 €</td><td style="padding:8px 10px;text-align:right;color:var(--mint)">+3,98 €</td></tr>
+          <tr style="border-bottom:1px solid #f0f0f0"><td style="padding:8px 10px">4</td><td style="padding:8px 10px;text-align:right;color:#888">91 × 1,19454</td><td style="padding:8px 10px;text-align:right;font-weight:600">108,70 €</td><td style="padding:8px 10px;text-align:right;color:var(--mint)">+8,70 €</td></tr>
+          <tr style="border-bottom:1px solid #f0f0f0"><td style="padding:8px 10px">5</td><td style="padding:8px 10px;text-align:right;color:#888">91 × 1,24879</td><td style="padding:8px 10px;text-align:right;font-weight:600">113,64 €</td><td style="padding:8px 10px;text-align:right;color:var(--mint)">+13,64 €</td></tr>
+          <tr style="border-bottom:1px solid #f0f0f0"><td style="padding:8px 10px">6</td><td style="padding:8px 10px;text-align:right;color:#888">91 × 1,30551</td><td style="padding:8px 10px;text-align:right;font-weight:600">118,80 €</td><td style="padding:8px 10px;text-align:right;color:var(--mint)">+18,80 €</td></tr>
+          <tr style="background:var(--mint-pale)"><td style="padding:10px;font-weight:700;color:var(--navy)">7 (sortie fiscale)</td><td style="padding:10px;text-align:right;color:var(--navy)">91 × 1,36480</td><td style="padding:10px;text-align:right;font-weight:700;color:var(--navy);font-size:14px">124,20 €</td><td style="padding:10px;text-align:right;font-weight:700;color:var(--mint);font-size:14px">+24,20 €</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="perf-deco" style="grid-template-columns:repeat(3,1fr);margin-top:16px">
+        <div class="perf-brick navy">
+          <div class="pb-pct">124,20 €</div>
+          <div class="pb-label">VL brute à 7 ans</div>
+          <div class="pb-nature">Avant fiscalité de sortie</div>
+        </div>
+        <div class="perf-brick">
+          <div class="pb-pct">+ 24,20 €</div>
+          <div class="pb-label">Plus-value brute</div>
+          <div class="pb-nature">Sur 100 € investis</div>
+        </div>
+        <div class="perf-brick gold">
+          <div class="pb-pct">~ 3,14 %/an</div>
+          <div class="pb-label">Performance brute annualisée</div>
+          <div class="pb-nature">Hors avantage fiscal entrée</div>
+        </div>
+      </div>
+      <div class="alert-box" style="margin-top:14px">
+        <strong>⚠ Lecture critique.</strong> Le capital investi n'est <strong>théoriquement reconstitué qu'à partir de l'année 3</strong> (VL 103,98 € &gt; 100 € payés), une fois la commission de souscription absorbée par la capitalisation. Avant cette date, sortir du produit (même si c'était possible malgré l'inaliénabilité 3 ans) conduirait à une perte en capital. <strong>L'avantage fiscal IR-PME 25 % joue un rôle clé dans la rentabilité réelle du produit</strong> : sans lui, la performance brute 3,14 %/an place ce support en dessous de nombreux placements sans risque.
+      </div>
+    </div>
+
+    <div class="section-title">👤 À qui ce produit s'adresse</div>
+    <div class="adequation">
+      <div class="adq-card yes">
+        <div class="adq-title">✓ Profil adapté</div>
+        <ul>
+          <li>Investisseur avec un <strong>impôt sur le revenu significatif</strong> (idéalement ≥ 15 000 €/an pour optimiser le plafond d'avantage fiscal)</li>
+          <li>Redevable de l'<strong>IFI</strong> cherchant à réduire son assiette taxable</li>
+          <li>Horizon d'investissement <strong>7 à 10 ans réel</strong>, sans besoin de liquidité intermédiaire</li>
+          <li>Sensibilité à l'<strong>investissement à impact</strong> (soutien au bien-vieillir des seniors)</li>
+          <li>Patrimoine financier permettant une <strong>allocation limitée (5 à 10 % max)</strong> sur ce type de support</li>
+          <li>Compréhension et acceptation du <strong>risque de perte en capital</strong> et de <strong>liquidité</strong></li>
+        </ul>
+      </div>
+      <div class="adq-card no">
+        <div class="adq-title">✗ Profil non adapté</div>
+        <ul>
+          <li>Besoin de <strong>revenus complémentaires immédiats</strong> (aucune distribution pendant la détention)</li>
+          <li>Horizon d'investissement court ou <strong>besoin de liquidité</strong> dans les 7 prochaines années</li>
+          <li>Faible niveau d'IR (l'avantage fiscal ne serait que partiellement utilisé)</li>
+          <li>Aversion au risque forte ou profil <strong>prudent strict</strong></li>
+          <li>Patrimoine peu diversifié — concentration sur un support innovant non éprouvé</li>
+          <li>Recherche d'un produit liquide ou négociable sur un marché secondaire</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section-title">🔒 Liquidité</div>
+    <div class="liquidite-box">
+      <strong>Un produit à liquidité fortement contrainte.</strong> Les statuts de la SCA prévoient plusieurs niveaux de restriction à la sortie qu'il est essentiel de comprendre avant de souscrire :
+      <ul style="margin:10px 0 0 20px">
+        <li><strong>Inaliénabilité des parts pendant 3 ans</strong> — aucune sortie possible, même partielle.</li>
+        <li><strong>Engagement fiscal de 7 ans</strong> — toute sortie avant 7 ans entraîne la reprise de la réduction d'impôt (sauf exceptions).</li>
+        <li><strong>Plafond statutaire de retrait</strong> — la diminution annuelle de capital est limitée à 20 % par an. En cas d'afflux de demandes de sortie, priorité est donnée aux investisseurs les plus anciens.</li>
+        <li><strong>Réserve de liquidité</strong> — 15 % des fonds collectés sont conservés en trésorerie pour faciliter les rachats, mais cette réserve ne constitue pas une garantie de liquidité.</li>
+        <li><strong>Pas de marché secondaire</strong> — les actions ne sont pas négociables sur un marché organisé.</li>
+      </ul>
+    </div>
+
+    <div class="section-title">⚠️ Risques principaux</div>
+    <div class="risks-grid">
+      <div class="risk-card">
+        <div class="risk-title">Risque de perte en capital</div>
+        <div class="risk-text">La valeur de la part peut diminuer en fonction des performances et du marché. Perte partielle ou totale possible.</div>
+      </div>
+      <div class="risk-card">
+        <div class="risk-title">Risque immobilier résidentiel</div>
+        <div class="risk-text">La valorisation est directement liée à l'évolution du marché immobilier résidentiel français.</div>
+      </div>
+      <div class="risk-card">
+        <div class="risk-title">Risque fiscal</div>
+        <div class="risk-text">Le dispositif IR-PME ESUS peut évoluer ou disparaître. Resserrement annoncé après septembre 2026.</div>
+      </div>
+      <div class="risk-card">
+        <div class="risk-title">Risque d'illiquidité</div>
+        <div class="risk-text">Inaliénabilité 3 ans, plafond de sortie 20 %/an, pas de marché secondaire. Durée réelle probable : 7 ans minimum.</div>
+      </div>
+      <div class="risk-card">
+        <div class="risk-title">Risque de valorisation</div>
+        <div class="risk-text">Actifs valorisés annuellement par le commandité (Merci Prosper). Écart possible entre valorisation comptable et valeur de revente réelle.</div>
+      </div>
+      <div class="risk-card">
+        <div class="risk-title">Risque lié au modèle</div>
+        <div class="risk-text">Modèle économique récent (1 exercice clôturé). Track record insuffisant pour valider l'objectif de performance dans la durée.</div>
+      </div>
+    </div>
+
+    <div class="section-title">💸 Frais</div>
+    <div class="frais-box">
+      <div class="frais-line"><span>Commission de souscription</span><strong>9 % TTC du montant investi</strong></div>
+      <div class="frais-line"><span>Commission de gestion annuelle</span><strong>Néant (pas de frais récurrents)</strong></div>
+      <div class="frais-line"><span>Frais administratifs et comptables</span><strong>3 360 € TTC / an (fixes, supportés par la SCA)</strong></div>
+      <div class="frais-line"><span>Frais de revente des parts</span><strong>0 %</strong></div>
+      <div class="frais-line"><span>Frais d'acquisition des actifs<br/><span style="font-weight:400;font-size:11px;color:#888">(intégrés au prix du contrat Prosper, payés par la Foncière)</span></span><strong>~ 18 % TTC du montant monétisé<br/><span style="font-weight:400;font-size:11px;color:#888">(10 % commission + 8 % notaire/taxes)</span></strong></div>
+      <div class="frais-line"><span>Ticket minimum (1ʳᵉ souscription)</span><strong>1 152,40 € (10 actions)</strong></div>
+    </div>
+
+    <div class="section-title">🧮 Simulation comparative (avec fiscalité de sortie)</div>
+    <div class="simulation">
+      <div class="sim-title">Investissement de référence</div>
+      <div class="sim-subtitle">40 000 € investis · Foyer imposé ≥ 10 000 € d'IR/an · Horizon 7 ans</div>
+      <div class="sim-scenarios">
+        <div class="sim-sc">
+          <div class="sim-sc-title">Scénario cible (non garanti)</div>
+          <div class="sim-sc-line"><span>Capital versé par le client</span><span>40 000 €</span></div>
+          <div class="sim-sc-line" style="color:#ffb3b0;font-size:11.5px"><span>− Commission souscription 9 % TTC</span><span>− 3 600 €</span></div>
+          <div class="sim-sc-line" style="font-style:italic;opacity:.85"><span>Base capitalisante réelle</span><span>36 400 €</span></div>
+          <div class="sim-sc-line"><span>Réduction IR (année 1)</span><span>+ 10 000 €</span></div>
+          <div class="sim-sc-line" style="border-top:1px solid rgba(255,255,255,.15);margin-top:6px;padding-top:8px"><span>Contrat Prosper (3 %/an cap.)</span><span>+ 8 378 €</span></div>
+          <div class="sim-sc-line"><span>Effet immobilier (1,5 %/an cap.)</span><span>+ 4 902 €</span></div>
+          <div class="sim-sc-line" style="font-style:italic;opacity:.85"><span>VL brute à 7 ans</span><span>49 680 €</span></div>
+          <div class="sim-sc-line" style="border-top:1px solid rgba(255,255,255,.15);margin-top:6px;padding-top:8px;color:#ffb3b0"><span>− PFU 31,4 % sur PV (9 680 €)</span><span>− 3 040 €</span></div>
+          <div class="sim-sc-line"><span>VL nette de fiscalité</span><span>46 640 €</span></div>
+          <div class="sim-sc-line"><span>= Capital net + avantage fiscal</span><span>≈ 56 640 €</span></div>
+        </div>
+        <div class="sim-sc">
+          <div class="sim-sc-title">Scénario défavorable (non garanti)</div>
+          <div class="sim-sc-line"><span>Capital versé par le client</span><span>40 000 €</span></div>
+          <div class="sim-sc-line" style="color:#ffb3b0;font-size:11.5px"><span>− Commission souscription 9 % TTC</span><span>− 3 600 €</span></div>
+          <div class="sim-sc-line" style="font-style:italic;opacity:.85"><span>Base capitalisante réelle</span><span>36 400 €</span></div>
+          <div class="sim-sc-line"><span>Réduction IR (année 1)</span><span>+ 10 000 €</span></div>
+          <div class="sim-sc-line" style="border-top:1px solid rgba(255,255,255,.15);margin-top:6px;padding-top:8px"><span>Contrat Prosper maintenu (3 %/an)</span><span>+ 8 378 €</span></div>
+          <div class="sim-sc-line" style="color:#ffb3b0"><span>Baisse immobilier (−2 %/an)</span><span>− 4 811 €</span></div>
+          <div class="sim-sc-line" style="font-style:italic;opacity:.85"><span>VL brute à 7 ans</span><span>39 967 €</span></div>
+          <div class="sim-sc-line" style="border-top:1px solid rgba(255,255,255,.15);margin-top:6px;padding-top:8px;color:#ffb3b0"><span>− PFU 31,4 % sur PV (0 €)</span><span>0 €</span></div>
+          <div class="sim-sc-line"><span>VL nette de fiscalité</span><span>39 967 €</span></div>
+          <div class="sim-sc-line"><span>= Capital net + avantage fiscal</span><span>≈ 49 967 €</span></div>
+        </div>
+      </div>
+      <div style="margin-top:16px;background:rgba(255,255,255,.07);border-radius:8px;padding:12px 14px;font-size:11.5px;line-height:1.7;opacity:.9">
+        <strong style="color:var(--mint)">Méthode de calcul de la plus-value :</strong> PV imposable = Prix de cession − Prix de souscription brut (100 € par action, commission de souscription incluse dans la base fiscale d'acquisition). Imposition au PFU 31,4 % (12,8 % IR + 17,2 % prélèvements sociaux + contribution additionnelle). La réduction d'impôt IR-PME obtenue à la souscription ne réduit pas la base d'acquisition fiscale (règle générale, à confirmer fiscaliste pour les véhicules ESUS). Scénario défavorable : si la VL ressort sous le prix de souscription, il n'y a pas de PV imposable — mais il y a une perte en capital.
+      </div>
+      <div class="sim-note">
+        Simulations à titre purement indicatif. Hypothèses : avantage fiscal intégralement utilisé, paramètres cibles réalisés, fiscalité 2026 inchangée. Aucun de ces chiffres n'est garanti — perte en capital possible.
+      </div>
+    </div>
+
+    <div class="mentions">
+      <strong>Mentions légales —</strong> Foncière Prosper Générations Solidaires est une Société en Commandite par Actions (SCA) immatriculée au RCS de Paris sous le numéro 927 463 554 00018, gérée par Merci Prosper, agréée ESUS. Les parts sont distribuées par Merci Prosper, Agent Lié de Wiseed, Prestataire de Services d'Investissement agréé par l'ACPR (CIB 11783). Les performances passées ne préjugent pas des performances futures. L'investissement comporte un <strong>risque de perte en capital et de liquidité</strong>. La durée d'investissement recommandée est de 7 à 10 ans. Les avantages fiscaux ne sont pas automatiques et dépendent de la situation personnelle de chaque investisseur, susceptible d'évoluer. Le dispositif IR-PME ESUS est prorogé jusqu'au 30 septembre 2026 et fera l'objet d'un resserrement annoncé. Ce document est fourni à titre informatif et pédagogique — il ne constitue ni un conseil en investissement personnalisé, ni une recommandation d'investissement. Toute souscription doit être précédée de la remise du Document d'Informations Synthétique (DIS), des statuts, du bulletin de souscription et de l'agrément ESUS, disponibles sur fonciere.merciprosper.com. Source : supports investisseurs Foncière Prosper, données 2025.
+    </div>
+
+  </div>
+
+  <div class="card-footer">
+    <div>
+      <div class="fb-name">LE DÉCLIC PATRIMONIAL</div>
+      <div class="fb-sub">Cabinet indépendant · CIF · COA · CNCEF · ORIAS 25009171</div>
+    </div>
+    <a class="rdv-btn" href="https://calendar.app.google/z2ryZbYSk9EKg9378" target="_blank" rel="noopener">📅 &nbsp;Prendre RDV →</a>
+  </div>
+
+</div>
+
+</body>
+</html>
